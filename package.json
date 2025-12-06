@@ -1,0 +1,41 @@
+{
+  "name": "tree-select",
+  "type": "module",
+  "version": "1.0.0",
+  "packageManager": "pnpm@10.24.0",
+  "description": "",
+  "author": "",
+  "license": "MIT",
+  "keywords": [],
+  "main": "index.ts",
+  "scripts": {
+    "dev": "storybook dev -p 6006",
+    "build:sb": "storybook build",
+    "build:lib": "vue-tsc && vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix",
+    "tsc": "vue-tsc --noEmit"
+  },
+  "dependencies": {
+    "vue": "catalog:"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "catalog:",
+    "@storybook/addon-a11y": "catalog:",
+    "@storybook/addon-links": "catalog:",
+    "@storybook/vue3": "catalog:",
+    "@storybook/vue3-vite": "catalog:",
+    "@types/node": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "@vue/tsconfig": "catalog:",
+    "eslint": "catalog:",
+    "jsdom": "catalog:",
+    "storybook": "catalog:",
+    "typescript": "catalog:",
+    "vite": "catalog:",
+    "vitest": "catalog:",
+    "vue-tsc": "catalog:"
+  }
+}
