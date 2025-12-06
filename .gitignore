@@ -1,1 +1,28 @@
-.DS_Store\nnode_modules/\ndist/\ncoverage/\n*.log\n.env\n.env.local
+.DS_Store
+node_modules
+dist
+coverage
+.env
+.env.local
+*.log
+.eslintcache
+
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+storybook-static
+
+# Testing
+.nyc_output
+.vitest
+
+# TypeScript
+*.tsbuildinfo
+
+vite.config.mjs.*mjs
+vitest.config.mjs.*mjs
