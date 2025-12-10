@@ -1,2 +1,2 @@
 export { default as Treeselect } from './components/Treeselect.vue'
-export type { TreeNode } from './types'
+export type { TreeNode, TreeselectProps } from './components/types'

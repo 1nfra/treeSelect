@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/vue3'
+import type { TreeNode } from '../components/types'
 import { ref } from 'vue'
 import Treeselect from '../components/Treeselect.vue'
 
@@ -6,42 +7,85 @@ const meta: Meta<typeof Treeselect> = {
   title: 'Components/Treeselect',
   component: Treeselect,
   tags: ['autodocs'],
-  argTypes: {
-    modelValue: {
-      control: 'text',
-      description: 'Selected value',
-    },
-  },
 }
 
 export default meta
 
 type Story = StoryObj<typeof Treeselect>
 
+// Базовые данные
+const basicOptions: TreeNode[] = [
+  { id: 1, label: 'Apple' },
+  { id: 2, label: 'Banana' },
+  { id: 3, label: 'Orange' },
+  { id: 4, label: 'Grape' },
+  { id: 5, label: 'Mango' },
+]
+
+// Базовый пример
 export const Basic: Story = {
-  render: args => ({
+  render: () => ({
     components: { Treeselect },
     setup() {
-      const value = ref(args.modelValue)
-      return { args, value }
+      const selected = ref(null)
+      return { selected, options: basicOptions }
     },
     template: `
       <div style="padding: 20px; max-width: 300px;">
         <Treeselect 
-          v-model="value" 
-          v-bind="args"
+          v-model="selected"
+          :options="options"
+          placeholder="Select a fruit"
         />
-        <p style="margin-top: 20px;">Value: {{ value }}</p>
+        <div style="margin-top: 20px; font-size: 12px; color: #666;">
+          Selected: {{ selected }}
+        </div>
       </div>
     `,
   }),
-  args: {
-    modelValue: null,
-  },
 }
 
-export const WithValue: Story = {
-  args: {
-    modelValue: 'selected-value',
-  },
+// Множественный выбор
+export const MultipleSelection: Story = {
+  render: () => ({
+    components: { Treeselect },
+    setup() {
+      const selected = ref([])
+      return { selected, options: basicOptions }
+    },
+    template: `
+      <div style="padding: 20px; max-width: 300px;">
+        <Treeselect 
+          v-model="selected"
+          :options="options"
+          :multiple="true"
+          placeholder="Select multiple fruits"
+        />
+        <div style="margin-top: 20px; font-size: 12px; color: #666;">
+          Selected: {{ selected }}
+        </div>
+      </div>
+    `,
+  }),
+}
+
+// Отключенное состояние
+export const Disabled: Story = {
+  render: () => ({
+    components: { Treeselect },
+    setup() {
+      const selected = ref(null)
+      return { selected, options: basicOptions }
+    },
+    template: `
+      <div style="padding: 20px; max-width: 300px;">
+        <Treeselect 
+          v-model="selected"
+          :options="options"
+          :disabled="true"
+          placeholder="Disabled select"
+        />
+      </div>
+    `,
+  }),
 }
