@@ -1,98 +1,90 @@
 <script setup lang="ts">
-import type { TreeNode, TreeselectProps } from './types'
-import { computed, ref } from 'vue'
+import type { TreeNode, TreeselectProps } from './types';
+import { computed, ref } from 'vue';
 
 const props = withDefaults(defineProps<TreeselectProps>(), {
   multiple: false,
   disabled: false,
   placeholder: 'Select...',
   clearable: false,
-})
+});
 
 const emit = defineEmits<{
-  'update:modelValue': [value: any]
-  'select': [node: TreeNode]
-  'clear': []
-}>()
+  'update:modelValue': [value: any];
+  'select': [node: TreeNode];
+  'clear': [];
+}>();
 
-const isOpen = ref(false)
+const isOpen = ref(false);
 
 const hasValue = computed(() => {
-  if (props.multiple) {
-    return Array.isArray(props.modelValue) && props.modelValue.length > 0
-  }
-  return props.modelValue != null
-})
+  if (props.multiple) return Array.isArray(props.modelValue) && props.modelValue.length > 0;
+  return props.modelValue != null;
+});
 
 const displayValue = computed(() => {
   if (props.multiple && Array.isArray(props.modelValue)) {
     if (props.modelValue.length === 0)
-      return props.placeholder
+      return props.placeholder;
     if (props.modelValue.length === 1) {
-      const option = props.options.find(opt => opt.id === props.modelValue[0])
-      return option ? option.label : '1 item selected'
+      const option = props.options.find(opt => opt.id === props.modelValue[0]);
+      return option ? option.label : '1 item selected';
     }
-    return `${props.modelValue.length} items selected`
+    return `${props.modelValue.length} items selected`;
   }
 
-  const option = props.options.find(opt => opt.id === props.modelValue)
-  return option ? option.label : props.placeholder
-})
+  const option = props.options.find(opt => opt.id === props.modelValue);
+  return option ? option.label : props.placeholder;
+});
 
 const containerClasses = computed(() => ({
   'vue-treeselect--open': isOpen.value,
   'vue-treeselect--disabled': props.disabled,
   'vue-treeselect--multiple': props.multiple,
   'vue-treeselect--has-value': hasValue.value,
-}))
+}));
 
 function toggleMenu() {
-  if (props.disabled)
-    return
-  isOpen.value = !isOpen.value
+  if (props.disabled) return;
+  isOpen.value = !isOpen.value;
 }
 
 function closeMenu() {
-  isOpen.value = false
+  isOpen.value = false;
 }
 
 function selectOption(option: TreeNode) {
-  if (option.isDisabled)
-    return
+  if (option.isDisabled) return;
 
-  let newValue
+  let newValue;
   if (props.multiple) {
-    const current = Array.isArray(props.modelValue) ? props.modelValue : []
-    const index = current.indexOf(option.id)
+    const current = Array.isArray(props.modelValue) ? props.modelValue : [];
+    const index = current.indexOf(option.id);
 
-    if (index > -1) {
-      newValue = [...current.slice(0, index), ...current.slice(index + 1)]
-    }
-    else {
-      newValue = [...current, option.id]
-    }
+    if (index > -1)
+      newValue = [...current.slice(0, index), ...current.slice(index + 1)];
+    else
+      newValue = [...current, option.id];
   }
   else {
-    newValue = option.id
-    closeMenu()
+    newValue = option.id;
+    closeMenu();
   }
 
-  emit('update:modelValue', newValue)
-  emit('select', option)
+  emit('update:modelValue', newValue);
+  emit('select', option);
 }
 
 function optionClasses(option: TreeNode) {
   return {
     'treeselect-option--disabled': option.isDisabled,
     'treeselect-option--selected': isSelected(option),
-  }
+  };
 }
 
 function isSelected(option: TreeNode): boolean {
-  if (props.multiple && Array.isArray(props.modelValue)) {
-    return props.modelValue.includes(option.id)
-  }
-  return props.modelValue === option.id
+  if (props.multiple && Array.isArray(props.modelValue)) return props.modelValue.includes(option.id);
+  return props.modelValue === option.id;
 }
 </script>
 

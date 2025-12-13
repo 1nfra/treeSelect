@@ -1,17 +1,17 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
-import type { TreeNode } from '../components/types'
-import { ref } from 'vue'
-import Treeselect from '../components/Treeselect.vue'
+import type { Meta, StoryObj } from '@storybook/vue3';
+import type { TreeNode } from '../components/types';
+import { ref } from 'vue';
+import Treeselect from '../components/Treeselect.vue';
 
 const meta: Meta<typeof Treeselect> = {
   title: 'Components/Treeselect',
   component: Treeselect,
   tags: ['autodocs'],
-}
+};
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof Treeselect>
+type Story = StoryObj<typeof Treeselect>;
 
 // Базовые данные
 const basicOptions: TreeNode[] = [
@@ -20,15 +20,15 @@ const basicOptions: TreeNode[] = [
   { id: 3, label: 'Orange' },
   { id: 4, label: 'Grape' },
   { id: 5, label: 'Mango' },
-]
+];
 
 // Базовый пример
 export const Basic: Story = {
   render: () => ({
     components: { Treeselect },
     setup() {
-      const selected = ref(null)
-      return { selected, options: basicOptions }
+      const selected = ref(null);
+      return { selected, options: basicOptions };
     },
     template: `
       <div style="padding: 20px; max-width: 300px;">
@@ -43,15 +43,15 @@ export const Basic: Story = {
       </div>
     `,
   }),
-}
+};
 
 // Множественный выбор
 export const MultipleSelection: Story = {
   render: () => ({
     components: { Treeselect },
     setup() {
-      const selected = ref([])
-      return { selected, options: basicOptions }
+      const selected = ref([]);
+      return { selected, options: basicOptions };
     },
     template: `
       <div style="padding: 20px; max-width: 300px;">
@@ -67,15 +67,15 @@ export const MultipleSelection: Story = {
       </div>
     `,
   }),
-}
+};
 
 // Отключенное состояние
 export const Disabled: Story = {
   render: () => ({
     components: { Treeselect },
     setup() {
-      const selected = ref(null)
-      return { selected, options: basicOptions }
+      const selected = ref(null);
+      return { selected, options: basicOptions };
     },
     template: `
       <div style="padding: 20px; max-width: 300px;">
@@ -88,4 +88,4 @@ export const Disabled: Story = {
       </div>
     `,
   }),
-}
+};
